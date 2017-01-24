@@ -1,0 +1,44 @@
+﻿@model Machine
+@{
+    ViewData["Title"] = "Add Machine";
+}
+<form method="post">
+    <div class="form-horizontal">
+        <input type="hidden" value="@ViewBag.cid" name="cid" hidden/>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Company:</label>
+            <div class="col-md-10">
+                <input style="width: 75%" type="text" value="@ViewBag.Company" disabled/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" asp-for="ModelNumber">Model Number:</label>
+            <div class="col-md-10">
+                <input style="width: 75%" name="MNumber" asp-for="ModelNumber"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label" asp-for="Type">Type:</label>
+            <div class="col-md-10">
+                <input style="width: 75%" name="Type" asp-for="Type"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SerialKey" class="col-md-2 control-label">Serial Key:</label>
+            <div class="col-md-10">
+                <input style="width: 75%" asp-for="SerialKey" name="sKey"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HostName" class="col-md-2 control-label">Host Name:</label>
+            <div class="col-md-10">
+                <input style="width: 75%" asp-for="HostName" name="hName"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Submit" class="btn btn-default">
+            </div>
+        </div>
+    </div>
+</form>

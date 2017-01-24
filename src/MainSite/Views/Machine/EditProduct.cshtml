@@ -1,0 +1,71 @@
+﻿@model ProductLink
+@{
+    ViewData["Title"] = $"Edit Product - {ViewBag.Name}";
+}
+<form method="post">
+    <input type="text" name="lid" value="@Model.Id" hidden/>
+    <div class="form-group">
+        <label>Start - Expires:</label>
+        <div>
+            <div class="input-daterange input-group" id="datepicker">
+                <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                <input type="text" class="form-control" name="daterange" value="@ViewBag.date" required/>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" asp-for="LicenseKey">License Key:</label>
+        <input class="form-control col-md-10" type="text" pattern=".{1-25}" name="lKey" value="@Model.LicenseKey"/>
+    </div>
+    <div class="form-group">
+        <label class="col-md-2 control-label" asp-for="Version">Version:</label>
+        <input class="form-control col-md-10" type="text" name="Version" value="@Model.Version"/>
+    </div>
+    <div style="height: 10em"></div>
+    <div class="pull-left form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default"/>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $('input[name="daterange"]').daterangepicker({
+            "locale": {
+                "format": "DD/MM/YYYY",
+                "separator": " - ",
+                "applyLabel": "Apply",
+                "cancelLabel": "Cancel",
+                "fromLabel": "From",
+                "toLabel": "To",
+                "customRangeLabel": "Custom",
+                "weekLabel": "W",
+                "daysOfWeek": [
+                    "Su",
+                    "Mo",
+                    "Tu",
+                    "We",
+                    "Th",
+                    "Fr",
+                    "Sa"
+                ],
+                "monthNames": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                "firstDay": 1
+            }
+        });
+    });
+
+</script>

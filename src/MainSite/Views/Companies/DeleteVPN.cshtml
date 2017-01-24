@@ -1,0 +1,10 @@
+﻿@model Vpn
+@{
+    ViewData["Title"] = $"Delete VPN - {Model.Type} {Model.Address}";
+}
+<form method="post">
+    <input type="hidden" hidden value="@Model.Id" name="vId"/>
+    <h4>Are you sure you want to remove @Model.Type - @Model.Address?</h4>
+    <input type="submit" value="Yes" class="btn btn-danger"/> <br/> 
+    <a asp-action="Details" asp-route-id="@Model.Cid" class="btn btn-default">Back to Company</a>
+</form>

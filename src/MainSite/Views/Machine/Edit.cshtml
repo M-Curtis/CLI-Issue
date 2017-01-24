@@ -1,0 +1,12 @@
+﻿@model Machine
+@{
+    ViewData["Title"] = $"Edit - {Model.Type} {Model.ModelNumber}";
+}
+<form method="post">
+    <input type="hidden" hidden value="@Model.Id" name="mid"/>
+    <div class="form-group" style="width: 75%">
+        <label asp-for="HostName">Hostname:</label><br/>
+        <input asp-for="HostName" value="@Model.HostName" name="address"/>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-default"/>
+</form>

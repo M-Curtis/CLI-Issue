@@ -1,0 +1,43 @@
+﻿<form action="EditNotes" method="post">
+    <div class="form-horizontal">
+        <div class="form-group">
+            <div class="col-md-10">
+                <textarea id="editor" name="editor" rows="10" cols="80"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="submit" value="Save" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
+<script type="text/javascript">
+    CKEDITOR.editorConfig = function(config) {
+        config.toolbarGroups = [
+            { name: 'clipboard', groups: ['undo', 'clipboard'] },
+            { name: 'editing', groups: ['find', 'selection', 'spellchecker', 'editing'] },
+            { name: 'links', groups: ['links'] },
+            { name: 'insert', groups: ['insert'] },
+            { name: 'forms', groups: ['forms'] },
+            { name: 'tools', groups: ['tools'] },
+            { name: 'document', groups: ['mode', 'document', 'doctools'] },
+            { name: 'others', groups: ['others'] },
+            '/',
+            { name: 'basicstyles', groups: ['basicstyles', 'cleanup'] },
+            { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi', 'paragraph'] },
+            { name: 'styles', groups: ['styles'] },
+            { name: 'colors', groups: ['colors'] },
+            { name: 'about', groups: ['about'] }
+        ];
+
+        config.removeButtons = 'Underline,Subscript,Superscript';
+        config.extraPlugins = 'codeSnippet';
+    };
+    CKEDITOR.replace('editor');
+    CKEDITOR.on("instanceReady",function(event) {
+            CKEDITOR.instances.editor.setData(`@Html.Raw(ViewBag.Content)`);
+        });
+</script>

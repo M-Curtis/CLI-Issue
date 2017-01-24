@@ -1,0 +1,194 @@
+﻿@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@Html.Raw(ViewData["Title"])</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/plugins/ionicons/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins
+    folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/css/skins/_all-skins.min.css">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="~/plugins/iCheck/flat/blue.css">
+    <!-- jvectormap -->
+    <link rel="stylesheet" href="~/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="~/plugins/html5shiv/html5shiv.min.js"></script>
+        <script src="~/plugins/html5shiv/respond.min.js"></script>
+    <![endif]-->
+    <!-- jQuery 2.2.4 -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- jQuery UI 1.11.4 -->
+    <script src="~/plugins/jQueryUI/jquery-ui.min.js"></script>
+    <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+    <script>
+
+        $.widget.bridge('uibutton', $.ui.button);
+    </script>
+    <!-- DateRangePicker CSS -->
+    <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css"/>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="~/plugins/toastr/toastr.css"/>
+</head>
+
+<body class="skin-blue sidebar-mini wysihtml5-supported fixed">
+<div class="wrapper">
+    <header class="main-header">
+        <!-- Logo -->
+        <a asp-action="Index" asp-controller="Home" class="logo">
+            <!-- mini logo for sidebar mini 50x50 pixels -->
+            <span class="logo-mini"><b>U</b>TI</span>
+            <!-- logo for regular state and mobile devices -->
+            <span class="logo-lg"><b>Utilities</b> 400</span>
+        </a>
+        <!-- Header Navbar: style can be found in header.less -->
+        <nav class="navbar navbar-static-top">
+            <!-- Sidebar toggle button-->
+            <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+                <span class="sr-only">Toggle navigation</span>
+            </a>
+            <div class="navbar-custom-menu">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown user user-menu">
+                        @await Html.PartialAsync("_LoginPartial")
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+        <!-- sidebar: style can be found in sidebar.less -->
+        <div class="slimScrollDiv" style="height: 414px; overflow: hidden; position: relative; width: auto;">
+            <section class="sidebar" style="height: 414px; overflow: hidden; width: auto;">
+                <!-- Sidebar user panel -->
+                <div class="user-panel">
+                    <div class="pull-left image">
+                        <i class="fa fa-user-circle fa-2x" style="color: white" aria-hidden="true"></i>
+                    </div>
+                    <div class="pull-left info">
+                        <p>@UserManager.GetUserName(User)</p>
+                    </div>
+                </div>
+                <!-- search form -->
+                <form action="#" method="get" class="sidebar-form">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="Search...">
+                        <span class="input-group-btn">
+                            <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+                <!-- /.search form -->
+                <!-- sidebar menu: : style can be found in sidebar.less -->
+                <ul class="sidebar-menu">
+                    <li class="header">MAIN NAVIGATION</li>
+                    <li>
+                        <a asp-controller="Home" asp-action="Index">
+                            <i class="fa fa-home fa-lg"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Companies" asp-action="Index">
+                            <i class="fa fa-building fa-lg"></i>
+                            <span>Companies</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Contacts" asp-action="Index">
+                            <i class="fa fa-address-book fa-lg"></i>
+                            <span>Contacts</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Documentation" asp-action="Index">
+                            <i class="fa fa-book fa-lg"></i>
+                            <span>Documentation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a asp-controller="Downloads" asp-action="Index">
+                            <i class="fa fa-download"></i>
+                            <span>Downloads</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="http://mantis.uti400.com/">
+                            <i class="fa fa-bug"></i>
+                            <span>Bug Tracker</span>
+                        </a>
+                    </li>
+                </ul>
+            </section>
+            <div class="slimScrollBar" style="background: #000000; background: rgba(0, 0, 0, 0.2); border-radius: 7px; display: block; height: 185.093px; opacity: 0.4; position: absolute; right: 1px; top: 0px; width: 3px; z-index: 99;"></div>
+            <div class="slimScrollRail" style="background: rgb(51, 51, 51); border-radius: 7px; display: none; height: 100%; opacity: 0.2; position: absolute; right: 1px; top: 0px; width: 3px; z-index: 90;"></div>
+        </div>
+        <!-- /.sidebar -->
+    </aside>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper" style="padding-left: 5px">
+        <!-- Content Header (Page header) -->
+        <h2>@ViewData["Title"]</h2>
+        @RenderBody()
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+    <div class="push"></div>
+    <!-- ./wrapper -->
+</div>
+<div class="footer">
+    <div class="pull-right hidden-xs">
+        <b>Uti400 Intranet</b> 1.0.7
+    </div>
+</div>
+<!-- Moment Javascript -->
+<script src="~/lib/moment.js"></script>
+<!-- DateRangePicker -->
+<script src="~/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Include Date Range Picker -->
+<script src="~/plugins/moment/moment.min.js"></script>
+<!-- Slim Scroll Plugin -->
+<script src="~/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/js/app.min.js"></script>
+<!-- Font Awesome -->
+<script src="https://use.fontawesome.com/fa236694a9.js"></script>
+<!-- Toastr -->
+<script src="~/plugins/toastr/toastr.js"></script>
+<script type="text/javascript">
+    toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true,
+        "positionClass": "toast-top-full-width",
+        "preventDuplicates": false,
+        "showDuration": "600",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    $(document).ready(function() {
+        @Html.Partial("_Notify")
+    });
+</script>
+<!-- Page specific scripts-->
+@RenderSection("scripts", false)
+</body>
+</html>

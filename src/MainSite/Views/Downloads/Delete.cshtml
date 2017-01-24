@@ -1,0 +1,8 @@
+﻿@model MainSite.Models.DownloadViewModels.DownloadViewModel
+<h3>Are you sure you want to delete @Model.Downloads[0].Name?</h3>
+<form method="post">
+    <input type="hidden" hidden name="name" value="@Model.Downloads[0].Name"/>
+    <input type="hidden" hidden name="catId" value="@Model.Categories[0].Id"/>
+    <button class="btn btn-danger" type="submit">Delete</button><br/> <br/>
+    <a class="btn btn-default" asp-action="Index">Go back</a>
+</form>

@@ -1,0 +1,71 @@
+/* iCheck plugin Line skin, orange
+----------------------------------- */
+.icheckbox_line-orange,
+.iradio_line-orange {
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    background: #f70;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    cursor: pointer;
+    display: block;
+    font-size: 13px;
+    line-height: 17px;
+    margin: 0;
+    padding: 5px 15px 5px 38px;
+    position: relative;
+}
+
+.icheckbox_line-orange .icheck_line-icon,
+.iradio_line-orange .icheck_line-icon {
+    background: url(line.png) no-repeat;
+    border: none;
+    height: 11px;
+    left: 13px;
+    margin: -5px 0 0 0;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    top: 50%;
+    width: 13px;
+}
+
+.icheckbox_line-orange.hover,
+.icheckbox_line-orange.checked.hover,
+.iradio_line-orange.hover { background: #FF9233; }
+
+.icheckbox_line-orange.checked,
+.iradio_line-orange.checked { background: #f70; }
+
+.icheckbox_line-orange.checked .icheck_line-icon,
+.iradio_line-orange.checked .icheck_line-icon { background-position: -15px 0; }
+
+.icheckbox_line-orange.disabled,
+.iradio_line-orange.disabled {
+    background: #FFD6B3;
+    cursor: default;
+}
+
+.icheckbox_line-orange.disabled .icheck_line-icon,
+.iradio_line-orange.disabled .icheck_line-icon { background-position: -30px 0; }
+
+.icheckbox_line-orange.checked.disabled,
+.iradio_line-orange.checked.disabled { background: #FFD6B3; }
+
+.icheckbox_line-orange.checked.disabled .icheck_line-icon,
+.iradio_line-orange.checked.disabled .icheck_line-icon { background-position: -45px 0; }
+
+/* Retina support */
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-moz-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-device-pixel-ratio: 1.5) {
+    .icheckbox_line-orange .icheck_line-icon,
+    .iradio_line-orange .icheck_line-icon {
+        -webkit-background-size: 60px 13px;
+        background-image: url(line@2x.png);
+        background-size: 60px 13px;
+    }
+}

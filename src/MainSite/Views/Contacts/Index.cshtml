@@ -1,0 +1,69 @@
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+Search:
+<form id="search" name="search" asp-controller="Contacts" asp-action="Index" method="post">
+    <div class="form-group form-inline">
+        <input type="text" name="searchinput" class="form-control" placeholder="Search...">
+        <button class="btn btn-default" type="submit">Search</button>
+    </div>
+</form>
+<table class="table table-bordered table-striped table-responsive">
+    <thead>
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            Name
+        </th>
+
+        <th>
+            Email
+        </th>
+        <th>
+            Phone
+        </th>
+        <th>
+            Mobile
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in ViewBag.Contacts)
+    {
+        <tr>
+            <td>
+                <a asp-controller="Companies" asp-action="Details" asp-route-id="@c.Cid">@ViewBag.Companies[c.Cid - 1].CompanyName</a>
+            </td>
+            <td>
+                @c.FirstName @c.LastName
+            </td>
+            <td>
+                <a href="mailto:@c.Email">@c.Email</a>
+            </td>
+            <td>
+                @c.Phone
+            </td>
+            <td>
+                @c.MobilePhone
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@c.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@c.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@c.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+@if (ViewBag.Contacts.Count <= 0)
+{
+    <div style="text-align: center;">
+        <span class="fa fa-5x fa-cogs"></span>
+        <span>Uh oh looks like nothings here right now, go add some contacts to companies you know.</span>
+    </div>
+}
+<div style="padding: 1em"></div>

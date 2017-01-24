@@ -1,0 +1,204 @@
+@using MainSite.Models.CompaniesViewModels
+@model MainSite.Models.CompaniesViewModels.CompanyDetailsViewModel
+
+@{
+    ViewData["Title"] = $"{Model.Company.CompanyName}";
+    Layout = "_LayoutNoTitle";
+}
+<a asp-action="Index">
+    <i class="fa fa-chevron-left"></i>
+</a>
+<div>
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="pull-right"><a asp-action="Edit" asp-route-id="@Model.Company.Id">Edit</a></span>
+            <h3 style="margin: 0">Details</h3>
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>
+                    Company:
+                </dt>
+                <dd>
+                   @Model.Company.CompanyName
+                </dd>
+                <dt>
+                    Website:
+                </dt>
+                <dd>
+                    <a href="@Model.Company.Website">@Model.Company.Website</a>
+                </dd>
+                <dt>
+                    Products
+                </dt>
+                <dd>
+                    @foreach (var product in ViewBag.Products)
+                    { 
+                        <span>@product.ProductName</span>
+                        <a asp-action="DeleteProduct" asp-route-cid="@Model.Company.Id" , asp-route-pid="@product.Id">Delete</a>
+                        <br/>
+                    }
+                    <a asp-action="AddProduct" asp-route-cid="@Model.Company.Id">Add Product</a>
+                </dd>
+            </dl>
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="pull-right"><a asp-action="AddVpn" asp-route-id="@Model.Company.Id">Add New Connection</a></span>
+            <h3>VPN Connections</h3>
+        </div>
+        <div class="panel-body">
+            @foreach (var conn in Model.VpNs)
+            {
+                <span class="pull-right">
+                    <a asp-action="EditVpn" asp-route-id="@conn.Vpn.Id">Edit Hostname</a> |
+                    <a asp-action="AddCredentials" asp-route-id="@conn.Vpn.Id">Add Credentials</a> |
+                    <a asp-action="DeleteVpn" asp-route-id="@conn.Vpn.Id"><span class="fa fa-trash" aria-hidden="true"></span>Delete</a>
+                </span>
+                <h4 style="text-decoration: underline">@conn.Vpn.Type - @conn.Vpn.Address</h4>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>
+                            Username
+                        </th>
+                        <th>
+                            Password
+                        </th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var creds in conn.CredList)
+                    {
+                        <tr>
+                            <td>@creds.Username</td>
+                            <td>@creds.Password</td>
+                            <td><a asp-action="DeleteCredentials" asp-route-cid="@creds.Id"><span class="fa fa-trash">Delete</a></td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                <span class="pull-right"><a asp-action="EditVpnNotes" asp-route-id="@conn.Vpn.Id">Edit Notes</a></span>
+                <h4>Notes</h4>
+                <span>@Html.Raw(conn.VpnNotes)</span>
+            }
+
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            <span class="pull-right"><a asp-action="AddMachine" asp-route-id="@Model.Company.Id">Add New</a></span>
+            <h3>Machines:</h3>
+        </div>
+        <div class="panel-body">
+            @if (ViewBag.Machines != null)
+            {
+                for (var i = 0; i < ViewBag.Machines.Count; i++)
+                {
+                    <a asp-action="Index" asp-controller="Machine" asp-route-id="@ViewBag.Machines[i].Id">
+                        <h4 style="text-decoration: underline">@ViewBag.Machines[i].Type @ViewBag.Machines[i].ModelNumber (@ViewBag.Machines[i].HostName):</h4>
+                    </a>
+                    <div class="pull-right">
+                        <a asp-action="AddProduct" asp-controller="Machine" asp-route-returnurl="@Context.Request.Path" asp-route-id="@ViewBag.Machines[i].Id">Add Product</a>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <td>Product Name</td>
+                            <td>Version</td>
+                            <td>License Key</td>
+                            <td>Expires</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var product in Model.MachineProducts[i])
+                        {
+                            <tr>
+                                <td>@product.ProductName</td>
+                                <td>@product.Version</td>
+                                <td>@product.LicenseKey</td>
+                                <td id="@product.Id">@product.Expires</td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
+            }
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading" style="border: 0px">
+            <h3>Contacts:</h3>
+
+        </div>
+        <hr/>
+        <div class="panel-body">
+            <a asp-controller="Contacts" asp-action="Create" asp-route-cid="@Model.Company.Id">Add Contact</a>
+            <hr/>
+            @foreach (var contact in ViewBag.Contacts)
+            {
+                <span>
+                    @contact.FirstName @contact.LastName
+                </span>
+                <br/>
+                <span>
+                    Phone number : @contact.Phone;
+                </span>
+                <hr/>
+            }
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            Addresses <span class="pull-right"><a asp-action="AddAddress" asp-route-cid="@Model.Company.Id">Add Address</a></span>
+        </div>
+        <div class="panel-body">
+            @if (Model.Addresses != null)
+            {
+                foreach (var address in Model.Addresses)
+                {
+                    @address.Number @Html.Raw("&nbsp") @address.Street; <span class="pull-right">
+                        <a asp-action="DeleteAddress" asp-route-aid="@address.Id"><span class="fa fa-trash" aria-hidden="true"></span>Delete</a>
+                    </span><br/>
+                    @address.City<br />
+                    @address.County<br />
+                    @address.PostCode<br />
+                    <hr/>
+                }
+            }
+        </div>
+    </div>
+    <div class="panel">
+        <div class="panel-heading">
+            Notes
+            <div class="pull-right">
+                <a asp-action="EditNotes" asp-route-id="@Model.Company.Id">Edit</a>
+            </div>
+        </div>
+        <div class="panel-body">
+            @Html.Raw(ViewBag.Notes)
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Company.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+<script type="text/javascript">
+    @foreach (var m in Model.MachineProducts)
+    {
+        foreach (var p in m)
+        {
+            if (p.Expires != null)
+            {
+                if (p.Expires < DateTime.ParseExact(DateTime.Now.Date.ToString("dd-MM-yy"), "dd-MM-yy", null))
+                {
+                    <text>document.getElementById(@p.Id).setAttribute("style", "background-color: red;color: white;");
+                    </text>
+                }
+            }
+        }
+    }
+</script>

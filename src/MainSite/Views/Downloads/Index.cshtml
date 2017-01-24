@@ -1,0 +1,34 @@
+﻿@model MainSite.Models.DownloadViewModels.DownloadViewModel
+@{
+    ViewData["Title"] = "Downloads";
+}
+<form method="post" class="form-inline">
+    Search:
+    <input type="text" name="search"/>
+    Category:
+    <select name="selection" asp-items='new SelectList(Model.Categories, "Id", "CategoryName")'>
+        <option value="*" label="*" selected></option>
+    </select>
+    <input type="submit" value="Search"/>
+    <span style="padding-right: 1em" class="pull-right"><a class="btn btn-info" asp-action="Upload">Upload  <i class="fa fa-upload"></i></a></span> 
+</form>
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>File</th>
+        <th>Category</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var download in Model.Downloads)
+    {
+        <tr>
+            <td><a href="@download.Url">@download.Name</a></td>
+            <td>@Model.Categories.First(c => c.Id == download.CatId).CategoryName</td>
+            <td><a asp-action="Delete" asp-route-name="@download.Name" asp-route-catId="@download.CatId">Delete</a></td>
+        </tr>
+    }
+    </tbody>
+</table>

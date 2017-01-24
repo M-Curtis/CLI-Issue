@@ -1,0 +1,22 @@
+@{
+    ViewData["Title"] = "Move Product";
+}
+<form method="post">
+    <input type="hidden" name="lid" value="@ViewBag.lid"/>
+    <div class="form-group">
+        <label>From Machine:</label>
+        <select class="form-control" name="mid">
+            <option selected disabled value="@ViewBag.mid">@ViewBag.mName</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label>To Machine:</label>
+        <select class="form-control" name="mSel" asp-items="@(new SelectList(Model, "Id", "Name"))">
+            <option value="__">Unlink machine</option>
+        </select>
+    </div>
+    <div style="height: 1em"></div>
+    <div class="form-group">
+        <input type="submit" value="Submit" class="btn btn-default" />
+    </div>
+</form>

@@ -1,0 +1,21 @@
+﻿@model Category
+<form asp-action="Add_Category" method="post">
+    <div class="form-horizontal">
+        <h3>New Category</h3>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Category Name: </label>
+            <div class="col-md-10">
+                <input asp-for="CategoryName" class="form-control"/>
+            </div>
+            <span asp-validation-for="CategoryName" class="text-danger" />
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+    </div>
+</form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

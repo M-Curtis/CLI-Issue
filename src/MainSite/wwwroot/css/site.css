@@ -1,0 +1,28 @@
+body, html {
+    height: 100%;
+    overflow: hidden;
+    padding-bottom: 25px;
+    padding-top: 44px;
+}
+
+.scroll {
+    height: 100%;
+    margin-left: 37px;
+    overflow: auto;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+.wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -142px; /* the bottom margin is the negative value of the footer's height */
+}
+.footer, .push {
+    height: 142px; /* .push must be the same height as .footer */
+}
+
+.navbar-right { padding-right: 15px; }

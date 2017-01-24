@@ -1,0 +1,50 @@
+﻿@model MainSite.Models.CompaniesViewModels.AddressFormViewModel
+@{
+    ViewData["Title"] = $"Add Address to {Model.Company.CompanyName}";
+}
+<form method="post">
+    <div class="form-horizontal">
+        <input type="text" name="cid" hidden required readonly value="@Model.Company.Id" />
+        <div class="form-group">
+            <label class="col-md-2 control-label">Street Number:</label>
+            <div class="col-md-10">
+                <input type="text" name="num" required
+                       maxlength="5"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Street Name:</label>
+            <div class="col-md-10">
+                <input type="text" name="street" required
+                       maxlength="100" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">County:</label>
+            <div class="col-md-10">
+                <input type="text" name="county" required
+                       maxlength="15" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">City:</label>
+            <div class="col-md-10">
+                <input type="text" name="city" required
+                       maxlength="50" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Post Code:</label>
+            <div class="col-md-10">
+                <input type="text" name="postcode"
+                       title="Please follow the standard postcode format."
+                       pattern="^(([gG][iI][rR] {0,}0[aA]{2})|((([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y]?[0-9][0-9]?)|(([a-pr-uwyzA-PR-UWYZ][0-9][a-hjkstuwA-HJKSTUW])|([a-pr-uwyzA-PR-UWYZ][a-hk-yA-HK-Y][0-9][abehmnprv-yABEHMNPRV-Y]))) {0,}[0-9][abd-hjlnp-uw-zABD-HJLNP-UW-Z]{2}))$" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>

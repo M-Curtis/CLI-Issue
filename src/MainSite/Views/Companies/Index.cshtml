@@ -1,0 +1,71 @@
+@model MainSite.Models.CompaniesViewModels.CompaniesProductsViewModel
+@{
+    ViewData["Title"] = "Companies";
+}
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="form-inline">
+    <form class="form-inline" id="queryform" name="queryform" asp-controller="Companies" asp-action="Index" method="post">
+        <div class="form-group form-inline">
+            <label>Search:</label>
+            <input type="text" name="searchinput" class="form-control" placeholder="Search..."/>
+        </div>
+        <div class="form-group form-inline">
+            <label>Product:</label>
+            <select name="options" asp-items="@(new SelectList(Model.ModelProduct, "Value", "Text"))">
+                <option Value="*" label="*" selected="selected"></option>
+            </select>
+        </div>
+        <div class="form-group form-inline">
+            <div class="checkbox">
+                <label><input name="exChk" type="checkbox">Expired</label>
+            </div>
+        </div>
+        <button class="btn btn-default" type="submit">Search</button>
+
+    </form>
+</div>
+@ViewBag.comCount Companies
+<table class="table table-bordered table-striped">
+    <thead>
+    <tr>
+        <th>
+            Company
+        </th>
+        <th>
+            Website
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var c in Model.ModelCompany)
+    {
+        <tr id="@c.Id">
+            <td>
+                <a asp-controller="Companies" asp-action="Details" asp-route-id="@c.Id">@c.Name</a>
+            </td>
+            <td>
+                <a href="@c.Website">@c.Website</a>
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@c.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@c.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@c.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+<script>
+    @foreach (var c in Model.ModelCompany)
+    {
+        if (c.Expired)
+        {
+            <text>document.getElementById(@c.Id).setAttribute("style", "background-color: red; color:white;");</text>
+        }
+    }
+</script>

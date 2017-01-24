@@ -1,0 +1,12 @@
+﻿@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Edit - " + ViewBag.Title;
+}
+
+<form name="editclaim">
+    <input type="text" value="@UserManager.GetUserName(User)" disabled/>
+    <select name="claimSelection">
+        <option value="Yes"></option>
+        <option value="No"></option>
+    </select>
+</form>

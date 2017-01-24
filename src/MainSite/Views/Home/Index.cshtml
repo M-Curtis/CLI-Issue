@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<div class="row" style="padding: 10em">
+    <div class="col-md-4">
+        <a asp-controller="Companies" class="btn btn-primary">Companies</a>
+    </div>
+    <div class="col-md-4">
+         <a asp-controller="Companies" class="btn btn-primary">Contacts</a>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Documentation <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a asp-controller="Documentation">Documentation</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a asp-controller="Documentation" asp-action="Categories">Categories</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+﻿@model MainSite.Models.MachineViewModels.MachineMachineCredentialsViewModel
+@{
+    ViewData["Title"] = $"{Model.Machine.Type} - {Model.Machine.ModelNumber} ({Model.Machine.HostName})";
+    Layout = "_LayoutNoTitle";
+}
+<a asp-controller="Companies" asp-action="Details" asp-route-id="@Model.Machine.Cid">
+    <i class="fa fa-chevron-left"></i>
+</a>
+<h2>@Model.Machine.Type - @Model.Machine.ModelNumber (@Model.Machine.HostName)</h2>
+<div class="pull-right">
+    <a asp-action="Edit" asp-route-id="@Model.Machine.Id">Edit Machine</a> |
+    <a asp-action="Delete" asp-route-id="@Model.Machine.Id">Delete Machine</a>
+</div>
+<br/>
+<div class="panel">
+    <div class="panel-heading">
+        <span class="pull-right"><a asp-action="AddCredentials" asp-route-id="@Model.Machine.Id">Add Credential Set</a></span>
+        <h3>Credentials</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Password</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var credential in Model.Credentials)
+                {
+                    <tr>
+                        <td>@credential.Username</td>
+                        <td>@credential.Password</td>
+                        <td><a asp-action="DeleteCredentials" asp-route-cid="@credential.Id">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="panel">
+    <div class="panel-heading">
+        <span class="pull-right"><a asp-action="AddProduct" asp-route-id="@Model.Machine.Id">Add Product</a></span>
+        <h3>Products</h3>
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <td>Product</td>
+                    <td>Version</td>
+                    <td>License Key</td>
+                    <td>Expiry</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in ViewBag.Products)
+                {
+                    <tr>
+                        <td>@product.ProductName</td>
+                        <td>@product.Version</td>
+                        <td>@product.LicenseKey</td>
+                        <td id="@product.Id">@product.Expires</td>
+                        <td>
+                            <a asp-action="DeleteProduct" asp-route-id="@product.Id" asp-route-mid="@Model.Machine.Id">Delete</a> |
+                            <a asp-action="MoveProduct" asp-route-id="@product.Id">Move</a> |
+                            <a asp-action="EditProduct" asp-route-id="@product.Id">Edit</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+Serial: @Model.Machine.SerialKey <br/>
+Company: <a asp-action="Details" asp-controller="Companies" asp-route-id="@ViewBag.CID">@ViewBag.CName</a>
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        @foreach (var product in ViewBag.Products)
+            {
+            if (product.Expires != null)
+            {
+                if (product.Expires < DateTime.ParseExact(DateTime.Now.Date.ToString("dd-MM-yy"), "dd-MM-yy", null))
+                {
+                        <text>document.getElementById(@product.Id).setAttribute("style", "background-color: red;color: white;");</text>
+                    }
+            }
+        }
+    });
+</script>

@@ -1,0 +1,9 @@
+﻿@if (TempData["notify"] != null)
+{
+    @Html.Raw(TempData["notify"])
+    TempData["notify"] = null;
+}
+@if (ViewBag.notify != null)
+{
+    @Html.Raw(ViewBag.notify)
+}
